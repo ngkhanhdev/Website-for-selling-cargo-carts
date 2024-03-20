@@ -1,0 +1,53 @@
+{% load static  %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-        
+EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'store/css/owl.carousel.min.css' %}">
+<link rel="stylesheet" href="{% static 'store/css/all.min.css' %}">
+<link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+<title>Ecommerce | {% block title %} Register {% endblock title %} </title>
+
+
+<body style="background-color: #f5f9f1;">
+    <nav style="background-color: #f5f9f1;">
+        <div class="col-sm-6 offset-sm-3" style="margin: 100px auto;">
+            
+            <form action="" method="post" novalidate class="shadow p-5" style="background-color: white;">
+                <h3 style="text-align: center;"> Đăng kí</h3>
+                <br>
+                {% csrf_token %} 
+                {% for fm in form %}
+                    {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+                    <br>
+                {% endfor %}
+                {% if messages %}
+                <div class="mb-3">
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}alert-danger1{% elif message.tags == 'success' %}alert-success1{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+                <input type="submit" value="Đăng kí" class="btn btn-primary">
+                <br>
+                <div class="text-center text-primary fw-bold">
+                    <small>
+                         
+                        <a href="{% url 'login' %}" class="text-danger">Đăng nhập ngay
+
+                        </a>
+                    </small>
+                </div>
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger my-3">{{error}}</p>
+                {% endfor %}
+                {% endif %}
+                
+            </form>
+        </div>
+    </nav>
+</body>
+
+

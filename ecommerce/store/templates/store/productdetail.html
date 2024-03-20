@@ -1,0 +1,51 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+  Category 
+{% endblock title %}
+
+{% block main-content %}
+<br>
+    <div class="container">
+        <div class="row flex justify-content-between">
+           {% comment %}  <div class="img col-lg-5 mt-5">
+                <img src="{{product.product_image.url}}" class="img col-xs-6 col-sm-12 col-lg-12 mt-3 text-sm-center w-100 h-75" alt="error">
+            </div> {% endcomment %}
+            <div id="product-image" style="width: 500px; height: 500px;">
+                <img src="{{product.product_image.url}}" class="img col-xs-6 col-sm-12 col-lg-12 mt-3 text-sm-center w-100 h-75" alt="error">
+            </div>
+            <div class="productdetail col-lg-5" >
+                <p style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: 25px;">{{product.name_product}}</p>
+                <h4>{{product.formatted_price}} đ</h4>
+                <br>
+                <h5>Số lượng: {{product.quantity_product}}</h5>
+                <br>
+                <h4>Thông tin sản phẩm</h4>
+                <ul class="fs-5" style="font-family: Rajdhani;">
+                    <li>{{product.description}}</li>
+                    <li>{{product.prodapp}}</li>
+                  
+                </ul>
+
+                <form action="/add-to-cart" class="d-inline">
+                    <input type="hidden" name="prod_id" value="{{product.id_product}}">
+                    <button type="submit" class="btn btn-primary shadow px-5 py-2">Thêm vào giỏ hàng</button>
+                    <button type="submit" class="btn btn-warning shadow px-5 py-2 ms-4">Mua ngay</button>
+
+                </form>
+                
+            </div>
+        </div>
+    </div>
+   
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $("#product-image").reel({
+                images: "{{product.product_image.url}}", // Đường dẫn đến ảnh 360 độ
+                frames: 36, // Số lượng ảnh trong chuỗi hình ảnh
+                speed: 0.1, // Tốc độ xoay
+                responsive: true
+            });
+        });
+    </script>
+{% endblock main-content %}

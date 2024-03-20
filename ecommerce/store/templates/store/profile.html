@@ -1,0 +1,49 @@
+{% extends 'store/base.html' %} 
+{% load static %} 
+{% block title %} Profile 
+{% endblock title %} 
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="d-grid">
+                    <a href="{% url 'profile' %} " class="btn btn-primary"
+                    >Thông tin</a>
+                </li>
+              
+                <li class="d-grid">
+                    <a href="{% url 'updateprofilecus'  %}" class="btn "
+                    >Cập nhật thông tin</a>
+                </li>
+            </ul>
+        </div>
+    
+        <div class="col-sm-8 offset-sm-1">
+            <form action="" method="post">
+                    {% csrf_token %} {% for fm in form %} {{fm.label_tag}} {{fm}}
+                        <small class="text-danger">{{fm.errors|striptags}}</small>
+                        <br />
+                    {% endfor %}
+                    {% if messages %}
+                            <div class="mb-3">
+                                {% for message in messages %}
+                                    <div class="{% if message.tags == 'error' %}alert-danger1{% elif message.tags == 'success' %}alert-success1{% endif %}">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                    {% endif %}
+                    {% if form.non_field_errors %} {% for error in form.non_field_errors %}
+                        <p class="alert alert-danger my-3">{{error}}</p>
+                    {% endfor %} {% endif %}
+                    <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-primary">OK</button>
+                    </div>
+                
+            </form>
+        </div>
+  </div>
+</div>
+{% endblock main-content %}

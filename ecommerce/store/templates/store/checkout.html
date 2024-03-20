@@ -1,0 +1,57 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block title %}
+  Checkout
+{% endblock title %}
+{% block main-content  %}
+{% csrf_token %}
+<div class="container">
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-danger" role="alert">
+                {{msg}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <h4>Thông tin đơn hàng</h4>
+        
+            {% for item in cart %}
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="col-sm-9">
+                                <div class="my-3">
+                                    <h5>Tên sản phẩm: {{item.product.name_product}}</h5>
+                                    <p>Số lượng: {{item.quantity}}</p>
+                                    <p >Giá tiền: {{item.product.formatted_price}} đ</p>
+                                </div>   
+                        </div>
+                    </div>
+                </div>                
+            {% endfor %}
+            <p class="fw-bold"><h4>Thành tiền: {{formatted_totalamount}} đ</h4> </p>
+        </div>
+        <div class="col-sm-4 offset-sm-1">
+            <h4>Thông tin khách hàng</h4>
+            <form method="POST">
+                {% csrf_token %}
+                {% for fm in form %} {{fm.label_tag}} {{fm}}
+                    <small class="text-danger">{{fm.errors|striptags}}</small>
+                    <br>
+                {% endfor %}
+                <div class="text-end">
+                    <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Thanh toán trực tiếp</button>
+                    <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Thanh toán trực tuyến</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock main-content %}
+
+
+
+
